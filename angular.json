@@ -102,5 +102,8 @@
       }
     }
   },
-  "defaultProject": "patient-management"
+  "defaultProject": "patient-management",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }

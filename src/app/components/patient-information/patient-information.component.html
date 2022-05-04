@@ -1,0 +1,24 @@
+<div style="border:1px solid black">
+    <div style="text-align: center;">
+        <img src="{{this.patient.avatar}}">
+    </div>
+    <div style="border-top: 1px solid lightgrey; width: 90%; margin: 1em auto">
+        <p><strong>Name: </strong> {{this.patient.firstname}} {{this.patient.lastname}}</p>
+        <p><strong>Ward: </strong>
+            <select (change)="this.selectedValue$.next($event.target)">
+                <ng-container *ngFor="let wardType of wardTypes">
+                    <option *ngIf="wardType === this.patient.ward; else unselected" selected>
+                        {{wardType}}
+                    </option>
+                    <ng-template #unselected>
+                        <option>
+                            {{wardType}}
+                        </option>
+                    </ng-template>
+                </ng-container>
+            </select>
+        </p>
+        <p><strong>Phone: </strong>{{this.patient.phoneNumber}}</p>
+    </div>
+    <button (click)="this.deletePatient()">Delete Patient</button>
+</div>

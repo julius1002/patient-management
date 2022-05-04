@@ -1,0 +1,11 @@
+<h1>Patient Management</h1>
+<input placeholder="Search" #filterInput style="margin-right: 1em">
+<button (click)="addPatient()">Add patient</button>
+<ul *ngIf="this.patientData$ | async as patientData"
+  style=" display: grid;
+grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr; list-style-type: none; padding:0em; grid-row-gap: 1em; grid-column-gap: 1em;">
+  <li *ngFor="let patient of patientData; let i = index">
+    <app-patient-information [patient]="patient">
+    </app-patient-information>
+  </li>
+</ul>
