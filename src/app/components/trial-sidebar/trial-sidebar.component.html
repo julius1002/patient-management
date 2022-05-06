@@ -4,8 +4,10 @@
     <div *ngIf="this.trialsLoading$  | async"> loading...</div>
     <ul *ngIf="this.foundTrials$ | async as foundTrials">
         <li *ngFor="let trial of foundTrials">
-            {{trial.OrgFullName}}
-            <button>Assign Patient</button>
+            {{trial.BriefTitle}}
+            <div *ngIf="(this.selectedTrial$ | async)?.OrgFullName === trial?.OrgFullName"
+                style="border: 1px solid black;"></div>
+            <button (click)=assignTrial(trial)>Assign Patient</button>
         </li>
     </ul>
 </div>

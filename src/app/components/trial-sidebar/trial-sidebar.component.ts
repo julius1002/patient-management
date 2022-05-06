@@ -3,7 +3,7 @@ import { State, Store } from '@ngrx/store';
 import * as R from 'ramda';
 import { debounceTime, filter, fromEvent, map, Observable, pluck, tap } from 'rxjs';
 import { ajax } from "rxjs/ajax"
-import { loadTrials } from 'src/app/trials/actions/trial.actions';
+import { assignTrial, loadTrials } from 'src/app/trials/actions/trial.actions';
 @Component({
   selector: 'app-trial-sidebar',
   templateUrl: './trial-sidebar.component.html',
@@ -15,9 +15,12 @@ export class TrialSidebarComponent implements OnInit {
 
   foundTrials$: Observable<any[]>;
   trialsLoading$: Observable<boolean>;
+  selectedTrial$: Observable<any>;
+
   constructor(private state: Store<State<any>>) {
     this.foundTrials$ = this.state.select(({ trials: { trials } }: any) => trials)
     this.trialsLoading$ = this.state.select(({ trials: { trialsLoading } }: any) => trialsLoading)
+    this.selectedTrial$ = this.state.select(({ trials: { selectedTrial } }: any) => selectedTrial)
   }
 
   ngOnInit(): void {
@@ -28,6 +31,12 @@ export class TrialSidebarComponent implements OnInit {
         filter((term: any) => term.length > 3),
         debounceTime(500))
       .subscribe((value: any) => this.state.dispatch(loadTrials({ data: value })))
+  }
+
+  assignTrial(trial: any) {
+    this.state.dispatch(
+      assignTrial({ data: { trial: trial } })
+    )
   }
 
 }

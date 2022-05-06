@@ -7,9 +7,9 @@
     <input placeholder="Search patient" #filterInput style="margin-right: 1em">
     <button (click)="addPatient()">Add patient</button>
     <ul *ngIf="this.patientData$ | async as patientData"
-      style=" display: grid;
-grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr; list-style-type: none; padding:0em; grid-row-gap: 1em; grid-column-gap: 1em;">
-      <li *ngFor="let patient of patientData; let i = index">
+      style=" display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr; list-style-type: none; padding:0em; grid-row-gap: 1em; grid-column-gap: 1em;">
+      <li *ngFor="let patient of patientData" (click)="assignPatientToTrial(patient)"
+        [ngStyle]=" {'cursor': (this.selectedTrial$ | async) ? 'pointer' : 'default' }">
         <app-patient-information [patient]="patient">
         </app-patient-information>
       </li>

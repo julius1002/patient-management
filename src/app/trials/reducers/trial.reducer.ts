@@ -18,4 +18,8 @@ export const reducer = createReducer(
   on(TrialActions.loadTrialsSuccess, (state, action) => ({ ...state, trialsLoading: false, trials: action.data })),
   on(TrialActions.loadTrialsFailure, (state, action) => ({ ...state, trialsLoading: false })),
 
+  on(TrialActions.assignTrial, (state, { data: { trial } }) => ({ ...state, selectedTrial: trial })),
+  on(TrialActions.assignTrialToPatient, (state: any) => {
+    return ({ ...state, selectedTrial: undefined });
+  }),
 );

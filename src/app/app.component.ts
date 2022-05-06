@@ -11,30 +11,8 @@ export class AppComponent {
 
   title = 'patient-management';
 
-  wardTypes = [
-    'Emergency',
-    'Cardiology',
-    'ICU',
-    'Neurology',
-    'Oncology',
-    'Maternity'
-  ];
-
-  patientData: Patient[] = []
   
   constructor() {
 
-
-    this.patientData = R.map(() => {
-      return {
-        firstname: faker.name.firstName(),
-        lastname: faker.name.lastName(),
-        avatar: faker.image.avatar(),
-        id: faker.datatype.uuid(),
-        ward: this.wardTypes[Math.floor(Math.random() * this.wardTypes.length)],
-        phoneNumber: faker.phone.phoneNumber()
-      }
-    }
-      , R.range(1, 25))
   }
 }

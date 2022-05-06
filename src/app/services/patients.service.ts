@@ -30,7 +30,8 @@ export class PatientsService {
       avatar: faker.image.avatar(),
       id: faker.datatype.uuid(),
       ward: this.wardTypes[Math.floor(Math.random() * this.wardTypes.length)],
-      phoneNumber: faker.phone.phoneNumber()
+      phoneNumber: faker.phone.phoneNumber(),
+      trials: []
     })
       , R.range(1, 25)))
       .pipe(

@@ -39,7 +39,7 @@ export class PatientInformationComponent implements OnInit {
     of(0)
       .pipe(
         filter(() => confirm("Do you want to delete this patient?"))
-)
+      )
       .subscribe(() => this.state.dispatch(deletePatient({ data: this.patient })))
   }
 }

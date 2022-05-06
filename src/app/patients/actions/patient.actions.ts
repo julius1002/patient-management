@@ -19,12 +19,12 @@ export const loadPatientsFailure = createAction(
 // update
 export const updatePatients = createAction(
   '[Patient] Update Patients',
-  props<{ data: Patient }>()
+  props<{ data: any }>()
 );
 
 export const updatePatientsSuccess = createAction(
   '[Patient] Update Patients Success',
-  props<{ data: Patient }>()
+  props<{ data: any }>()
 );
 
 export const updatePatientsFailure = createAction(

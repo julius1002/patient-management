@@ -30,7 +30,9 @@ export class PatientEffects {
       mergeMap((data: any) =>
         this.patientsService.updatePatients(data)
           .pipe(
-            map((data: Patient) => PatientActions.updatePatientsSuccess({ data })),
+            map(({ data }: any) => {
+              return PatientActions.updatePatientsSuccess({ data: { patient: data } });
+            }),
             catchError(error => of(PatientActions.updatePatientsFailure({ error }))))
       )
     );

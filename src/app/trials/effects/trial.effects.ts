@@ -6,6 +6,7 @@ import { Observable, EMPTY, of } from 'rxjs';
 import * as TrialActions from '../actions/trial.actions';
 import { ajax } from 'rxjs/ajax';
 import * as R from 'ramda';
+import { updatePatients, updatePatientsFailure, updatePatientsSuccess } from 'src/app/patients/actions/patient.actions';
 
 
 
@@ -24,7 +25,7 @@ export class TrialEffects {
             map((fullStudies: any) => R.map(
               ({ Study:
                 { ProtocolSection:
-                  { IdentificationModule: { Organization: { OrgFullName } },
+                  { IdentificationModule: { Organization: { OrgFullName }, BriefTitle },
                     StatusModule: { OverallStatus, StatusVerifiedDate },
                     DescriptionModule: { BriefSummary },
                     EligibilityModule: { EligibilityCriteria, HealthyVolunteers },
@@ -32,7 +33,7 @@ export class TrialEffects {
                   }
                 }
               }: any) =>
-                ({ OrgFullName, OverallStatus, StatusVerifiedDate, BriefSummary, EligibilityCriteria, HealthyVolunteers, ContactsLocationsModule }))(fullStudies)),
+                ({ BriefTitle, OrgFullName, OverallStatus, StatusVerifiedDate, BriefSummary, EligibilityCriteria, HealthyVolunteers, ContactsLocationsModule }))(fullStudies)),
           ).pipe(
             map(data => TrialActions.loadTrialsSuccess({ data })),
             catchError(error => of(TrialActions.loadTrialsFailure({ error }))))
@@ -40,6 +41,22 @@ export class TrialEffects {
     );
   });
 
+  assignTrial$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(TrialActions.assignTrialToPatient),
+      concatMap(({ data: { patient, trial } }) => {
+        return of(updatePatientsSuccess({
+          data: {
+            patient: {
+              ...patient, trials: [...patient.trials, trial]
+            }
+          }
+        }));
+      }),
+      catchError(error => of(updatePatientsFailure({ error }))
+      )
+    );
+  });
 
 
   constructor(private actions$: Actions) { }

@@ -22,16 +22,20 @@ export const reducer = createReducer(
   on(PatientActions.loadPatientsFailure, (state, action) => ({ ...state, loading: false })),
 
   on(PatientActions.updatePatients, (state, action) => ({ ...state, loading: true })),
-  on(PatientActions.updatePatientsSuccess, (state: any, action: any) => ({ ...state, loading: false, patients: R.map((patient: Patient) => (patient.id === action.data.id) ? action.data : patient)(state.patients) })),
+  on(PatientActions.updatePatientsSuccess, (state: any, { data: { patient}}) => {
+    return ({ ...state, loading: false, patients: R.map((pat: Patient) => (pat.id === patient.id) ? patient : pat)(state.patients) });
+  }),
   on(PatientActions.updatePatientsFailure, (state, action) => ({ ...state, loading: false })),
 
 
   on(PatientActions.deletePatient, (state, action) => ({ ...state, loading: true })),
-  on(PatientActions.deletePatientSuccess, (state: any, action: any) => ({
-    ...state, loading: false, patients: R.filter((patient: Patient) => {
-      return (patient.id !== action.data.id);
-    })(state.patients)
-  })),
+  on(PatientActions.deletePatientSuccess, (state: any, action: any) => {
+    return ({
+      ...state, loading: false, patients: R.filter((patient: Patient) => {
+        return (patient.id !== action.data.id);
+      })(state.patients)
+    });
+  }),
   on(PatientActions.deletePatientFailure, (state, action) => ({ ...state, loading: false })),
 
   on(PatientActions.filterPatients, (state, action) => ({ ...state, loading: true, query: action.data })),

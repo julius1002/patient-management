@@ -5,4 +5,5 @@ export interface Patient {
     lastname: string;
     ward: string;
     phoneNumber: string;
+    trials: any[];
 } 
