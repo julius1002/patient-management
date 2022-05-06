@@ -1,0 +1,11 @@
+<div style="border: 1px solid black; padding:0.5em">
+    <h4>Search for Clinical Trials</h4>
+    <input placeholder="Illness" #trialInput>
+    <div *ngIf="this.trialsLoading$  | async"> loading...</div>
+    <ul *ngIf="this.foundTrials$ | async as foundTrials">
+        <li *ngFor="let trial of foundTrials">
+            {{trial.OrgFullName}}
+            <button>Assign Patient</button>
+        </li>
+    </ul>
+</div>

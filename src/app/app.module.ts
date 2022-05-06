@@ -9,14 +9,19 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { environment } from 'src/environments/environment';
-import * as fromPatient from '../patients/reducers/patient.reducer';
-import { PatientEffects } from '../patients/effects/patient.effects';
+import * as fromPatient from './patients/reducers/patient.reducer';
+import * as fromTrial from './trials/reducers/trial.reducer';
+
+import { PatientEffects } from './patients/effects/patient.effects';
+import { TrialSidebarComponent } from './components/trial-sidebar/trial-sidebar.component';
+import { TrialEffects } from './trials/effects/trial.effects';
 
 @NgModule({
   declarations: [
     AppComponent,
     PatientInformationComponent,
-    PatientGridComponent
+    PatientGridComponent,
+    TrialSidebarComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +30,8 @@ import { PatientEffects } from '../patients/effects/patient.effects';
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     EffectsModule.forRoot([]),
     StoreModule.forFeature(fromPatient.patientFeatureKey, fromPatient.reducer),
-    EffectsModule.forFeature([PatientEffects]),
+    StoreModule.forFeature(fromTrial.trialFeatureKey, fromTrial.reducer),
+    EffectsModule.forFeature([PatientEffects, TrialEffects]),
   ],
   providers: [],
   bootstrap: [AppComponent]

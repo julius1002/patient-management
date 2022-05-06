@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { State, Store } from '@ngrx/store';
 import { filter, map, of, pipe, Subject } from 'rxjs';
 import { Patient } from 'src/app/patient';
-import { deletePatient, updatePatients } from 'src/patients/actions/patient.actions';
+import { deletePatient, updatePatients } from 'src/app/patients/actions/patient.actions';
 
 @Component({
   selector: 'app-patient-information',

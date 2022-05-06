@@ -3,7 +3,7 @@ import faker from '@faker-js/faker';
 import { State, Store } from '@ngrx/store';
 import { debounceTime, fromEvent, Observable, pluck } from 'rxjs';
 import { Patient } from 'src/app/patient';
-import { addPatients, filterPatients, loadPatients } from 'src/patients/actions/patient.actions';
+import { addPatients, filterPatients, loadPatients } from 'src/app/patients/actions/patient.actions';
 
 @Component({
   selector: 'app-patient-grid',
