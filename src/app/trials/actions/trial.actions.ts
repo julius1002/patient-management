@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
+// load trials
 export const loadTrials = createAction(
   '[Trial] Load Trials',
   props<{ data: string }>()
@@ -15,6 +16,7 @@ export const loadTrialsFailure = createAction(
   props<{ error: any }>()
 );
 
+// assign trials
 export const assignTrial = createAction(
   '[Trial] Assign Trial',
   props<{ data: any }>()
@@ -34,4 +36,18 @@ export const assignTrialToPatientFailure = createAction(
   props<{ error: any }>()
 );
 
+// load illness result
+export const queryDiseases = createAction(
+  '[Disease] Query Diseases',
+  props<{ data: any }>()
+);
 
+export const queryDiseasesSuccess = createAction(
+  '[Disease] Query Diseases Success',
+  props<{ data: any }>()
+);
+
+export const queryDiseasesFailure = createAction(
+  '[Disease] Query Diseases Failure',
+  props<{ error: any }>()
+);

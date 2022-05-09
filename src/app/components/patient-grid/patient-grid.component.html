@@ -1,9 +1,9 @@
 <h1>Patient Management</h1>
 <div style="display: flex; justify-content: space-between;">
-  <div style="position: relative;flex-basis: 14%;">
+  <div style="position: relative;flex-basis: 16%;">
     <app-trial-sidebar></app-trial-sidebar>
   </div>
-  <div style="flex-basis: 85%;">
+  <div style="flex-basis: 83%;">
     <input placeholder="Search patient" #filterInput style="margin-right: 1em">
     <button (click)="addPatient()">Add patient</button>
     <ul *ngIf="this.patientData$ | async as patientData"

@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+
 import { PatientInformationComponent } from './components/patient-information/patient-information.component';
 import { PatientGridComponent } from './components/patient-grid/patient-grid.component';
 import { StoreModule } from '@ngrx/store';
@@ -31,7 +32,7 @@ import { TrialEffects } from './trials/effects/trial.effects';
     EffectsModule.forRoot([]),
     StoreModule.forFeature(fromPatient.patientFeatureKey, fromPatient.reducer),
     StoreModule.forFeature(fromTrial.trialFeatureKey, fromTrial.reducer),
-    EffectsModule.forFeature([PatientEffects, TrialEffects]),
+    EffectsModule.forFeature([PatientEffects, TrialEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]

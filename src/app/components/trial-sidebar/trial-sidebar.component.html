@@ -1,12 +1,24 @@
-<div style="border: 1px solid black; padding:0.5em">
+<div style="border: 1px solid black; padding:0.5em; position: relative;">
     <h4>Search for Clinical Trials</h4>
     <input placeholder="Illness" #trialInput>
-    <div *ngIf="this.trialsLoading$  | async"> loading...</div>
+    <div *ngIf="(this.queryLoading$  | async)"> loading results...</div>
+    <div *ngIf="(this.trialsLoading$  | async)"> loading trials...</div>
+    <ng-container *ngIf="this.diseaseQueryResults$ | async as diseaseQueryResults">
+        <ul *ngIf="diseaseQueryResults.length"
+            style="background-color:white;list-style-type: none; position: absolute; padding: 0em; top: 5.5em; border: 1px solid black; margin:0">
+            <li *ngFor="let disease of diseaseQueryResults" (click)="selectQuery(disease)"
+                style="cursor: pointer; padding:0.2em" onMouseOut="this.style.backgroundColor='white'"
+                onMouseOver="this.style.backgroundColor='lightgrey'">
+                {{disease}}
+            </li>
+        </ul>
+    </ng-container>
     <ul *ngIf="this.foundTrials$ | async as foundTrials">
-        <li *ngFor="let trial of foundTrials">
-            {{trial.BriefTitle}}
-            <div *ngIf="(this.selectedTrial$ | async)?.OrgFullName === trial?.OrgFullName"
-                style="border: 1px solid black;"></div>
+        <li *ngFor="let trial of foundTrials" style="margin-bottom:1em">
+            <strong>{{trial.BriefTitle}}</strong>
+            <p>{{trial.BriefSummary}}</p>
+            <div *ngIf="(this.selectedTrial$ | async)?.BriefTitle === trial?.BriefTitle"
+                style="border: 2px solid black;"></div>
             <button (click)=assignTrial(trial)>Assign Patient</button>
         </li>
     </ul>

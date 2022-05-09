@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, concatMap, pluck, tap, filter } from 'rxjs/operators';
+import { catchError, map, concatMap, pluck, tap, filter, switchMap, delay } from 'rxjs/operators';
 import { Observable, EMPTY, of } from 'rxjs';
 
 import * as TrialActions from '../actions/trial.actions';
 import { ajax } from 'rxjs/ajax';
 import * as R from 'ramda';
 import { updatePatients, updatePatientsFailure, updatePatientsSuccess } from 'src/app/patients/actions/patient.actions';
+import { queryDiseasesFailure, queryDiseasesSuccess } from '../actions/trial.actions';
+import { HttpClient } from '@angular/common/http';
 
 
 
@@ -59,6 +61,20 @@ export class TrialEffects {
   });
 
 
-  constructor(private actions$: Actions) { }
 
+  queryDiseases$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(TrialActions.queryDiseases),
+      switchMap(({ data }) =>
+
+        ajax(`https://clinicaltables.nlm.nih.gov/api/conditions/v3/search?authenticity_token=&terms=${data}`)
+          .pipe(
+            pluck("response"), // todo add, when async request is present
+            map(([_, __, ___, items]: any) => queryDiseasesSuccess({ data: items })),
+            catchError(error => of(TrialActions.queryDiseasesFailure({ error }))))
+      )
+    );
+  });
+
+  constructor(private actions$: Actions) { }
 }
