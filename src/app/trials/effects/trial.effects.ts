@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { catchError, map, concatMap, pluck, tap, filter, switchMap, delay } from 'rxjs/operators';
-import { Observable, EMPTY, of } from 'rxjs';
+import { catchError, map, concatMap, pluck, switchMap } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 import * as TrialActions from '../actions/trial.actions';
 import { ajax } from 'rxjs/ajax';
 import * as R from 'ramda';
-import { updatePatients, updatePatientsFailure, updatePatientsSuccess } from 'src/app/patients/actions/patient.actions';
-import { queryDiseasesFailure, queryDiseasesSuccess } from '../actions/trial.actions';
-import { HttpClient } from '@angular/common/http';
+import { updatePatientsFailure, updatePatientsSuccess } from 'src/app/patients/actions/patient.actions';
+import { queryDiseasesSuccess } from '../actions/trial.actions';
 
 
 

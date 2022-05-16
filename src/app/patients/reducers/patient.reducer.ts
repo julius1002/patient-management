@@ -28,6 +28,7 @@ export const reducer = createReducer(
   on(PatientActions.updatePatientsFailure, (state, action) => ({ ...state, loading: false })),
 
 
+  //deletepatient
   on(PatientActions.deletePatient, (state, action) => ({ ...state, loading: true })),
   on(PatientActions.deletePatientSuccess, (state: any, action: any) => {
     return ({
@@ -38,6 +39,7 @@ export const reducer = createReducer(
   }),
   on(PatientActions.deletePatientFailure, (state, action) => ({ ...state, loading: false })),
 
+  // filterpatient
   on(PatientActions.filterPatients, (state, action) => ({ ...state, loading: true, query: action.data })),
   on(PatientActions.filterPatientsSuccess, (state: any, action: any) => ({
     ...state, loading: false, patients: R.filter(((patient: Patient) => R.startsWith(action.data, patient.firstname) || R.startsWith(action.data, patient.lastname) || R.startsWith(action.data, patient.firstname + " " + patient.lastname)))(state.patients),
@@ -45,6 +47,7 @@ export const reducer = createReducer(
   })),
   on(PatientActions.filterPatientsFailure, (state, action) => ({ ...state, loading: false })),
 
+  // add patient
   on(PatientActions.addPatients, (state: any, action) => ({ ...state, loading: true })),
   on(PatientActions.addPatientsSuccess, (state: any, action: any) => {
     return ({ ...state, loading: false, patients: [...state.patients, ...action.data] });

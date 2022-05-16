@@ -34,9 +34,6 @@ export class PatientsService {
       trials: []
     })
       , R.range(1, 25)))
-      .pipe(
-        //delay(1000)
-      )
   }
 
   updatePatients(value: Patient): Observable<Patient> {

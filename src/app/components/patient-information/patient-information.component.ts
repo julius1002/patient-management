@@ -26,11 +26,8 @@ export class PatientInformationComponent implements OnInit {
   ];
 
   constructor(private state: Store<State<any>>) {
-
-    this.selectedValue$.pipe(
-      map(({ value }) => ({ ...this.patient, ward: value }))
-    ).subscribe((patient: Patient) => this.state.dispatch(updatePatients({ data: patient })))
-
+    this.selectedValue$.pipe(map(({ value }) => ({ ...this.patient, ward: value })))
+      .subscribe((patient: Patient) => this.state.dispatch(updatePatients({ data: patient })))
   }
 
   ngOnInit(): void { }
@@ -38,8 +35,7 @@ export class PatientInformationComponent implements OnInit {
   deletePatient() {
     of(0)
       .pipe(
-        filter(() => confirm("Do you want to delete this patient?"))
-      )
+        filter(() => confirm("Do you want to delete this patient?")))
       .subscribe(() => this.state.dispatch(deletePatient({ data: this.patient })))
   }
 }

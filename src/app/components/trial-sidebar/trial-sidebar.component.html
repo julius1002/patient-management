@@ -1,6 +1,6 @@
 <div style="border: 1px solid black; padding:0.5em; position: relative;">
     <h4>Search for Clinical Trials</h4>
-    <input placeholder="Illness" #trialInput>
+    <input placeholder="Disease" #trialInput>
     <div *ngIf="(this.queryLoading$  | async)"> loading results...</div>
     <div *ngIf="(this.trialsLoading$  | async)"> loading trials...</div>
     <ng-container *ngIf="this.diseaseQueryResults$ | async as diseaseQueryResults">
@@ -15,10 +15,9 @@
     </ng-container>
     <ul *ngIf="this.foundTrials$ | async as foundTrials">
         <li *ngFor="let trial of foundTrials" style="margin-bottom:1em">
-            <strong>{{trial.BriefTitle}}</strong>
+            <strong
+                [ngStyle]="{'text-decoration': (this.selectedTrial$ | async)?.BriefTitle === trial?.BriefTitle ? 'underline' : 'none'} ">{{trial.BriefTitle}}</strong>
             <p>{{trial.BriefSummary}}</p>
-            <div *ngIf="(this.selectedTrial$ | async)?.BriefTitle === trial?.BriefTitle"
-                style="border: 2px solid black;"></div>
             <button (click)=assignTrial(trial)>Assign Patient</button>
         </li>
     </ul>
