@@ -3,6 +3,9 @@
 Patient management software to associate clinical trials with randomly generated patients. Uses several HTTP APIs to open clinical trials.
 Was mainly used to learn how to use the Redux pattern.
 
+Based off:
+https://pragprog.com/titles/rkrxjs/build-reactive-websites-with-rxjs/
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.4.
 
 ## Development server
